@@ -1,7 +1,8 @@
-# Online Banking WebApp #
-## Installation ##
+# Online Banking WebApp
+## Installation
 1. Clone this project from GitHub
 2. Simply start `mvn test tomcat7:run`
+
 ## Test users
 The following test users are predefined in the system (username / password):
 
@@ -9,7 +10,8 @@ The following test users are predefined in the system (username / password):
 2. jerry / asd456
 3. spike / yxc789
 4. tyke / ert345
-## Arcitecture ##
-### Project Characteristic ###
+
+## Arcitecture
+### Project Characteristic
 Minimal WebApp using Spring MVC based on the following Maven Archetype:
 [https://github.com/kolorobot/spring-mvc-quickstart-archetype](https://github.com/kolorobot/spring-mvc-quickstart-archetype "https://github.com/kolorobot/spring-mvc-quickstart-archetype")
