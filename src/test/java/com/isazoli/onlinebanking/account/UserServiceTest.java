@@ -24,7 +24,7 @@ public class UserServiceTest {
 	private UserService userService = new UserService();
 
 	@Mock
-	private AccountRepository accountRepositoryMock;
+	private UserRepository accountRepositoryMock;
 
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
@@ -34,7 +34,7 @@ public class UserServiceTest {
 		// act
 		userService.initialize();
 		// assert
-		verify(accountRepositoryMock, times(2)).save(any(Account.class));
+		verify(accountRepositoryMock, times(4)).save(any(User.class));
 	}
 
 	@Test
@@ -51,7 +51,7 @@ public class UserServiceTest {
 	@Test
 	public void shouldReturnUserDetails() {
 		// arrange
-		Account demoUser = new Account("user@example.com", "demo", "ROLE_USER");
+		User demoUser = new User("user@example.com", "demo", "ROLE_USER");
 		when(accountRepositoryMock.findByEmail("user@example.com")).thenReturn(demoUser);
 
 		// act

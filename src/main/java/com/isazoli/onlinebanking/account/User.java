@@ -6,11 +6,11 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "account")
-@NamedQuery(name = Account.FIND_BY_EMAIL, query = "select a from Account a where a.email = :email")
-public class Account implements java.io.Serializable {
+@Table(name = "usermaster")
+@NamedQuery(name = User.FIND_BY_EMAIL, query = "select a from User a where a.email = :email")
+public class User implements java.io.Serializable {
 
-	public static final String FIND_BY_EMAIL = "Account.findByEmail";
+	public static final String FIND_BY_EMAIL = "User.findByEmail";
 
 	@Id
 	@GeneratedValue
@@ -24,11 +24,11 @@ public class Account implements java.io.Serializable {
 
 	private String role = "ROLE_USER";
 
-    protected Account() {
+    protected User() {
 
 	}
 	
-	public Account(String email, String password, String role) {
+	public User(String email, String password, String role) {
 		this.email = email;
 		this.password = password;
 		this.role = role;

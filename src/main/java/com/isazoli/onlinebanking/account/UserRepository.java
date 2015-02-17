@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Repository
 @Transactional(readOnly = true)
-public class AccountRepository {
+public class UserRepository {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -18,21 +18,19 @@ public class AccountRepository {
 	private PasswordEncoder passwordEncoder;
 	
 	@Transactional
-	public Account save(Account account) {
-		account.setPassword(passwordEncoder.encode(account.getPassword()));
-		entityManager.persist(account);
-		return account;
+	public User save(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		entityManager.persist(user);
+		return user;
 	}
 	
-	public Account findByEmail(String email) {
+	public User findByEmail(String email) {
 		try {
-			return entityManager.createNamedQuery(Account.FIND_BY_EMAIL, Account.class)
+			return entityManager.createNamedQuery(User.FIND_BY_EMAIL, User.class)
 					.setParameter("email", email)
 					.getSingleResult();
 		} catch (PersistenceException e) {
 			return null;
 		}
 	}
-
-	
 }

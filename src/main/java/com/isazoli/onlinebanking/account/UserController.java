@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @Secured("ROLE_USER")
-class AccountController {
+class UserController {
 
-    private AccountRepository accountRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public AccountController(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
+    public UserController(UserRepository accountRepository) {
+        this.userRepository = accountRepository;
     }
 
-    @RequestMapping(value = "account/current", method = RequestMethod.GET)
+    @RequestMapping(value = "user/current", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public Account accounts(Principal principal) {
+    public User users(Principal principal) {
         Assert.notNull(principal);
-        return accountRepository.findByEmail(principal.getName());
+        return userRepository.findByEmail(principal.getName());
     }
 }

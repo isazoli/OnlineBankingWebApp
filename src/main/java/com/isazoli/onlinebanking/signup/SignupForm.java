@@ -2,7 +2,7 @@ package com.isazoli.onlinebanking.signup;
 
 import org.hibernate.validator.constraints.*;
 
-import com.isazoli.onlinebanking.account.Account;
+import com.isazoli.onlinebanking.account.User;
 
 public class SignupForm {
 
@@ -32,7 +32,7 @@ public class SignupForm {
 		this.password = password;
 	}
 
-	public Account createAccount() {
-        return new Account(getEmail(), getPassword(), "ROLE_USER");
+	public User createAccount() {
+        return new User(getEmail(), getPassword(), "ROLE_USER");
 	}
 }
