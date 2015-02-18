@@ -1,6 +1,16 @@
 package com.isazoli.onlinebanking.account;
 
-import javax.persistence.*;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -18,16 +28,21 @@ public class User implements java.io.Serializable {
 
 	@Column(unique = true)
 	private String email;
-	
+
 	@JsonIgnore
 	private String password;
 
 	private String role = "ROLE_USER";
+	/**
+	 * The Bank accounts owned by this user.
+	 */
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "owner")
+	private List<BankAccount> bankAccounts;
 
-    protected User() {
+	protected User() {
 
 	}
-	
+
 	public User(String email, String password, String role) {
 		this.email = email;
 		this.password = password;
@@ -38,7 +53,7 @@ public class User implements java.io.Serializable {
 		return id;
 	}
 
-    public String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
@@ -60,5 +75,13 @@ public class User implements java.io.Serializable {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public List<BankAccount> getBankAccounts() {
+		return bankAccounts;
+	}
+
+	public void setBankAccounts(List<BankAccount> bankAccounts) {
+		this.bankAccounts = bankAccounts;
 	}
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Welcome to the Spring MVC Quickstart application! Get started quickly by signing up!</title>
+    <title>Welcome to my Online Banking Application! Get started quickly by signing in!</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
     <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
@@ -12,13 +12,12 @@
 <div th:replace="fragments/header :: header">Header</div>
 <div class="container">
     <div class="text-center">
-        <h1>Test</h1>
         <p class="lead">
             Welcome to my Online Banking Application!
-            Get started quickly by signing up.
+            Get started quickly by signing in.
         </p>
         <p>
-            <a href="/signup" th:href="@{/signup}" class="btn btn-success btn-lg">Sign up</a>
+            <a href="/signin" th:href="@{/signin}" class="btn btn-success btn-lg">Sign in</a>
         </p>
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2015 Zoltan Isaszegi</div>
