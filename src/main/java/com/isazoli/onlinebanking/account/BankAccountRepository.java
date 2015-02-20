@@ -38,7 +38,7 @@ public class BankAccountRepository {
 	 */
 	@Transactional
 	public BankAccount save(BankAccount account) {
-		entityManager.persist(account);
+		entityManager.merge(account);
 		return account;
 	}
 }
