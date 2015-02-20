@@ -17,7 +17,6 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	//@PostConstruct	
 	protected void initialize() {
 		//TODO: move this to initialization scripts
 		userRepository.save(new User("tom", "qwe123", "ROLE_USER"));
@@ -50,5 +49,4 @@ public class UserService implements UserDetailsService {
 	private GrantedAuthority createAuthority(User account) {
 		return new SimpleGrantedAuthority(account.getRole());
 	}
-
 }

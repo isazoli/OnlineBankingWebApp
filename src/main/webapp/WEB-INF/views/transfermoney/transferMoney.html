@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="#{view.index.title}">Welcome!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../../../resources/css/bootstrap.min.css" rel="stylesheet"
+	media="screen" th:href="@{/resources/css/bootstrap.min.css}" />
+<link href="../../../resources/css/core.css" rel="stylesheet"
+	media="screen" th:href="@{/resources/css/core.css}" />
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="../../../resources/js/bootstrap.min.js"
+	th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+	<div class="container">
+		<form class="form-narrow form-horizontal" method="post" th:action="@{transfer2}" th:object="${transferRequest}">
+			<fieldset>
+				<th:block th:if="${message != null}">
+					<!-- /* The message code is returned from the @Controller */ -->
+					<div th:replace="fragments/alert :: alert (type=${#strings.toLowerCase(message.type)}, message=#{${message.message}(${#authentication.name})})">&nbsp;</div>
+				</th:block>
+				<!-- /* Handle the flash message */-->
+				<th:block th:if="${#authorization.expression('isAuthenticated()') and bankaccounts != null}">
+					<div class="form-group">
+						<label for="sourceAccountId">Source Bank Account</label>
+						<select th:field="*{sourceAccountId}">
+							<option th:each="acc : ${bankaccounts}" th:value="${acc.id}" th:text="${acc.accountNumber} + '(' + ${acc.currency} + ')'">Account Number</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="targetAccountId">Target Bank Account</label>
+						<select th:field="*{targetAccountId}">
+							<option th:each="acc : ${targetaccounts}" th:value="${acc.id}" th:text="${acc.accountNumber} + '(' + ${acc.currency} + ')'">Account Number</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="amount">Amount</label>
+	                	<input type="text" id="amount" placeholder="Amount" name="amount" th:field="*{amount}"/>
+					</div>
+			        <div class="form-group">
+	          			<div class="container">
+	          				<button type="submit" class="btn btn-success btn-lg">Transfer</button>
+						</div>
+	        		</div>
+				</th:block>
+			</fieldset>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,6 +1,6 @@
 package com.isazoli.onlinebanking.account;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -47,7 +47,7 @@ public class UserRepository {
 			Hibernate.initialize(user.getBankAccounts());
 			accounts = user.getBankAccounts();
 		} else {
-			accounts = new ArrayList<BankAccount>();
+			accounts = Collections.<BankAccount> emptyList();
 		}
 		return accounts;
 	}

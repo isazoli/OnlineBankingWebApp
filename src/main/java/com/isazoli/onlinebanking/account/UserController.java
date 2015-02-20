@@ -28,8 +28,6 @@ class UserController {
     @ResponseBody
     public User users(Principal principal) {
         Assert.notNull(principal);
-        User user = userRepository.findByEmail(principal.getName());
-        user.getBankAccounts();
-		return user;
+		return userRepository.findByEmail(principal.getName());
     }
 }
