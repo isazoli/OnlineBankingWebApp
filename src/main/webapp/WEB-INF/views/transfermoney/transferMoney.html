@@ -14,7 +14,7 @@
 <body>
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 	<div class="container">
-		<form class="form-narrow form-horizontal" method="post" th:action="@{transfer2}" th:object="${transferRequest}">
+		<form class="form-narrow form-horizontal" method="post" th:action="@{transferSubmit}" th:object="${transferRequest}">
 			<fieldset>
 				<th:block th:if="${message != null}">
 					<!-- /* The message code is returned from the @Controller */ -->
@@ -24,7 +24,7 @@
 				<th:block th:if="${#authorization.expression('isAuthenticated()') and bankaccounts != null}">
 					<div class="form-group">
 						<label for="sourceAccountId">Source Bank Account</label>
-						<select th:field="*{sourceAccountId}">
+						<select id="sourceAccountId" name="sourceAccountId">
 							<option th:each="acc : ${bankaccounts}" th:value="${acc.id}" th:text="${acc.accountNumber} + '(' + ${acc.currency} + ')'">Account Number</option>
 						</select>
 					</div>

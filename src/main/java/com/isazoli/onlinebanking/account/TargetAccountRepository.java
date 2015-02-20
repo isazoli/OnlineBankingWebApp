@@ -12,7 +12,7 @@ import com.google.common.collect.Collections2;
  * Pre-defined target Bank Accounts.
  */
 @Repository
-public class TargetAccountRepository implements IBankAccountRepository {
+public class TargetAccountRepository {
 	/**
 	 * Test Bank Account stored.
 	 */
@@ -58,10 +58,7 @@ public class TargetAccountRepository implements IBankAccountRepository {
 	}
 	/**
 	 * Find Bank Account in the pre-defined {@link #bankAccounts} list.
-	 * 
-	 * @see com.isazoli.onlinebanking.account.IBankAccountRepository#findById(java.lang.Long)
 	 */
-	@Override
 	public BankAccount findById(final Long id) {
 		Collection<BankAccount> filteredList = Collections2.filter(
 				bankAccounts, new Predicate<BankAccount>() {
@@ -71,5 +68,15 @@ public class TargetAccountRepository implements IBankAccountRepository {
 					}
 				});
 		return filteredList.size() == 1 ? filteredList.iterator().next() : null;
+	}
+	
+	/**
+	 * Tries to save the Bank Account changes.
+	 * 
+	 * @param account Bank account changes to save.
+	 * @return saved account information.
+	 */
+	public BankAccount save(BankAccount account) {
+		return account;
 	}
 }

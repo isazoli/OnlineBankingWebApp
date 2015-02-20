@@ -14,7 +14,7 @@
 <body>
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 	<div class="container">
-		<form class="form-narrow form-horizontal" method="POST" action="@{transfer2}">
+		<form class="form-narrow form-horizontal" method="post" th:action="@{transferConfirm}"  th:object="${confirmRequest}">
 			<fieldset>
 				<th:block th:if="${message != null}">
 					<!-- /* The message code is returned from the @Controller */ -->
@@ -25,20 +25,21 @@
 					<div class="form-group">
 						<label for="acc">Source Bank Account</label>
 						<span th:utext="${acc.accountNumber}">XXXX-XXXX-XXXX-XXXX</span>
+						<input hidden="true" type="text" id="*{sourceAccountId}" name="sourceAccountId" th:value="${acc.id}"/>
 					</div>
 					<div class="form-group">
 						<label for="targetAcc">Target Bank Account</label>
 						<span th:utext="${targetAcc.accountNumber}">XXXX-XXXX-XXXX-XXXX</span>
+						<input hidden="true" type="text" id="*{targetAccountId}" name="targetAccountId" th:value="${targetAcc.id}"/>
 					</div>
 					<div class="form-group">
 						<label for="amount">Amount</label>
-	                	<span th:utext="${amount} + ' ' + ${acc.currency}">NA</span>
+						<span th:utext="${amount} + ' ' + ${acc.currency}">NA</span>
+	                	<input hidden="true" type="text" id="*{amount}" name="amount" th:value="${amount}"/>
 					</div>
 			        <div class="form-group">
-	          			<div class="container">
-							<a href="transfer2" th:href="@{transfer2}" class="btn btn-success btn-lg">Confirm</a>
-							<a href="transfermoney" th:href="@{transfermoney}" class="btn btn-success btn-lg">Cancel</a>
-						</div>
+          				<button type="submit" class="btn btn-success btn-lg">Confirm</button>
+						<a href="transfermoney" th:href="@{transfermoney}" class="btn btn-success btn-lg">Cancel</a>
 	        		</div>
 				</th:block>
 			</fieldset>

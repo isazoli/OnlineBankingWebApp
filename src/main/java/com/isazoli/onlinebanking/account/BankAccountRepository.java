@@ -11,21 +11,34 @@ import org.springframework.transaction.annotation.Transactional;
  * Repository for persisted (source) Bank Accounts.
  */
 @Repository
-@Transactional(readOnly = true)
-public class BankAccountRepository implements IBankAccountRepository {
+public class BankAccountRepository {
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	/**
-	 * @see com.isazoli.onlinebanking.account.IBankAccountRepository#findById(java.lang.Long)
+	 * Find Bank Account by ID.
+	 * 
+	 * @param id Id of the Account.
+	 * @return the matching Bank Account. If not found returns <code>null</code>.
 	 */
-	@Override
 	public BankAccount findById(Long id) {
 		try {
 			return entityManager.find(BankAccount.class, id);
 		} catch (PersistenceException e) {
 			return null;
 		}
+	}
+	
+	/**
+	 * Tries to save the Bank Account changes.
+	 * 
+	 * @param account entity to save.
+	 * @return saved entity.
+	 */
+	@Transactional
+	public BankAccount save(BankAccount account) {
+		entityManager.persist(account);
+		return account;
 	}
 }
