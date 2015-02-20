@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.isazoli.onlinebanking.account.BankAccount;
-import com.isazoli.onlinebanking.account.IBankAccountRepository;
+import com.isazoli.onlinebanking.account.BankAccountRepository;
 import com.isazoli.onlinebanking.account.TargetAccountRepository;
 import com.isazoli.onlinebanking.support.web.MessageHelper;
 
@@ -23,7 +23,7 @@ public class TransferMoneySubmitController {
 	/**
 	 * Reference to source Bank Account repository.
 	 */
-	private IBankAccountRepository bankAccountRepository;
+	private BankAccountRepository bankAccountRepository;
 	/**
 	 * Reference to target Bank Account repository.
 	 */
@@ -31,7 +31,7 @@ public class TransferMoneySubmitController {
 
 	@Autowired
 	public TransferMoneySubmitController(
-			IBankAccountRepository bankAccountRepository,
+			BankAccountRepository bankAccountRepository,
 			TargetAccountRepository targetAccountRepository) {
 		super();
 		this.bankAccountRepository = bankAccountRepository;
@@ -54,6 +54,9 @@ public class TransferMoneySubmitController {
 		mv.addObject("acc", sourceAccount);
 		final BankAccount targetAccount = targetAccountRepository.findById(transferRequest.getTargetAccountId());
 		mv.addObject("targetAcc", targetAccount);
+		// validation error: source and target accounts cannot be the same
+		if (sourceAccount.getId().equals(targetAccount.getId()))
+			return error("transfer.money.account.same", redirectAttributes, transferRequest);
 		// validation error: source and target accounts are in a different currency
 		if (!sourceAccount.getCurrency().equals(targetAccount.getCurrency()))
 			return error("transfer.money.account.not.same.currency", redirectAttributes, transferRequest);
@@ -71,6 +74,14 @@ public class TransferMoneySubmitController {
 		return mv;
 	}
 
+	/**
+	 * Adds no-argument error message & redirects to the transfer money page.
+	 * 
+	 * @param message message code.
+	 * @param redirectAttributes needed for redirection.
+	 * @param transferRequest input model object. 
+	 * @return error message added and redirection. 
+	 */
 	private ModelAndView error(String message,
 			RedirectAttributes redirectAttributes,
 			TransferMoneyRequest transferRequest) {

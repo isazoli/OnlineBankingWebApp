@@ -12,12 +12,22 @@ import org.springframework.web.servlet.ModelAndView;
 import com.isazoli.onlinebanking.account.TargetAccountRepository;
 import com.isazoli.onlinebanking.account.UserRepository;
 
+/**
+ * Controller for the Transfer Money form initialization.
+ * 
+ * @author isazoli
+ *
+ */
 @Controller
 @Secured("ROLE_USER")
 public class TransferMoneyController {
-
+	/**
+	 * User repository.
+	 */
 	private UserRepository userRepository;
-
+	/**
+	 * Target Bank Account repository.
+	 */
 	private TargetAccountRepository targetAccountRepository;
 
 	@Autowired
@@ -27,6 +37,12 @@ public class TransferMoneyController {
 		this.targetAccountRepository = targetAccountRepository;
 	}
 
+	/**
+	 * Initializes the source and target accounts for the transfer money form.
+	 * 
+	 * @param principal user principal.
+	 * @return redirection to the transfer money form.
+	 */
 	@RequestMapping(value = "/transfermoney", method = RequestMethod.GET)
 	public ModelAndView transferMoneyInit(Principal principal) {
 		final ModelAndView mv = new ModelAndView("transfermoney/transferMoney", "transferRequest", new TransferMoneyRequest());

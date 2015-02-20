@@ -12,10 +12,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * Controller to look up User information.
+ * 
+ * @author isazoli
+ *
+ */
 @Controller
 @Secured("ROLE_USER")
 class UserController {
-
+	/**
+	 * User repository.
+	 */
     private UserRepository userRepository;
 
     @Autowired
@@ -23,6 +31,12 @@ class UserController {
         this.userRepository = accountRepository;
     }
 
+    /**
+     * Loads the current user for the principal.
+     * 
+     * @param principal user principal. 
+     * @return current user for the principal.
+     */
     @RequestMapping(value = "user/current", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody

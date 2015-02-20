@@ -11,9 +11,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.isazoli.onlinebanking.account.UserRepository;
 
+/**
+ * Controller for home screen actions.
+ * 
+ * @author isazoli
+ *
+ */
 @Controller
 public class HomeController {
-
+	/**
+	 * User repository.
+	 */
 	private UserRepository userRepository;
 
 	@Autowired
@@ -21,6 +29,13 @@ public class HomeController {
 		this.userRepository = accountRepository;
 	}
 
+	/**
+	 * For logged in user's show the user's bank accounts.
+	 * If user is not yet logged in, redirects to the login page.
+	 * 
+	 * @param principal user principal.
+	 * @return target view (see above for details).
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index(Principal principal) {
 		final ModelAndView mv;

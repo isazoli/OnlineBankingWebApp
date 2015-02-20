@@ -14,6 +14,11 @@ import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+/**
+ * Stores User information.
+ * 
+ * @author isazoli
+ */
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "usermaster")
