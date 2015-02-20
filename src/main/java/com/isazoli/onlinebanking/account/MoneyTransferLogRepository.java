@@ -29,7 +29,7 @@ public class MoneyTransferLogRepository {
 		try {
 			return entityManager
 					.createNamedQuery(MoneyTransferLog.FIND_BY_SOURCE_ID, MoneyTransferLog.class)
-					.setParameter("sourceAccountId", sourceAccountId).getResultList();
+					.setParameter("id", sourceAccountId).getResultList();
 		} catch (PersistenceException e) {
 			return null;
 		}

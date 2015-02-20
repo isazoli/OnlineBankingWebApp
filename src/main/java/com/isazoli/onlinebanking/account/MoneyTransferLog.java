@@ -10,7 +10,8 @@ import javax.persistence.NamedQuery;
  * Entity for transfer money operations.
  */
 @Entity
-@NamedQuery(name = MoneyTransferLog.FIND_BY_SOURCE_ID, query = "select l from MoneyTransferLog l where l.sourceAccountId = :id")
+@NamedQuery(name = MoneyTransferLog.FIND_BY_SOURCE_ID, query = "select l from MoneyTransferLog l where l.sourceAccountId = :id"
+		+ " order by l.id desc")
 public class MoneyTransferLog {
 	public static final String FIND_BY_SOURCE_ID = "User.findBySourceId";
 

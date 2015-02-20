@@ -21,7 +21,7 @@
                 	<a href="/transfermoney">Transfer Money</a>
                 </li>
                 <li th:if="${#authorization.expression('isAuthenticated()')}">
-                	<a href="#history">Account History</a>
+                	<a href="/historyInit">Account History</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

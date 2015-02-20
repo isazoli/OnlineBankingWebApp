@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="#{view.index.title}">Welcome!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../../../resources/css/bootstrap.min.css" rel="stylesheet"
+	media="screen" th:href="@{/resources/css/bootstrap.min.css}" />
+<link href="../../../resources/css/core.css" rel="stylesheet"
+	media="screen" th:href="@{/resources/css/core.css}" />
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="../../../resources/js/bootstrap.min.js"
+	th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+	<div class="container">
+		<fieldset>
+			<th:block th:if="${message != null}">
+				<!-- /* The message code is returned from the @Controller */ -->
+				<div
+					th:replace="fragments/alert :: alert (type=${#strings.toLowerCase(message.type)}, message=#{${message.message}(${#authentication.name})})">&nbsp;</div>
+			</th:block>
+			<!-- /* Handle the flash message */-->
+			<th:block
+				th:if="${#authorization.expression('isAuthenticated()') and bankaccounts != null}">
+				<form class="form-narrow form-horizontal" method="post"
+					th:action="@{historyDetails}">
+					<div class="form-group">
+						<label for="sourceAccountId">Bank Account</label> 
+						<select name="sourceAccountId" id="sourceAccountId" onchange="@{historyDetails}">
+							<option th:each="acc : ${bankaccounts}" th:value="${acc.id}"
+								th:text="${acc.accountNumber} + '(' + ${acc.currency} + ')'">Account Number</option>
+						</select>
+					</div>
+				</form>
+			</th:block>
+
+			<th:block
+				th:if="${#authorization.expression('isAuthenticated()') and logs != null}">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Target Account Number</th>
+							<th>Amount</th>
+							<th>Currency</th>
+							<th>Type</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="log : ${logs}">
+							<td th:text="${log.targetAccountName}">XXXX-XXXX-XXXX-XXXX</td>
+							<td th:text="${log.amount}">0</td>
+							<td th:text="${log.currency}">XXX</td>
+							<td th:text="${log.operation}">NA</td>
+						</tr>
+					</tbody>
+				</table>
+			</th:block>
+		</fieldset>
+	</div>
+</body>
+</html>
