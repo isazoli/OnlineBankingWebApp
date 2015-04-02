@@ -1,4 +1,10 @@
 # Online Banking WebApp
+## Overview
+Basic online banking application with really minimal feature set:
+* built-in users
+* built-in bank accounts
+* transfering money to fake bank accounts (not between the built-in ones
+
 ## Installation
 1. Clone this project from GitHub
 2. Simply start `mvn test tomcat7:run`
